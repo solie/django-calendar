@@ -10,36 +10,35 @@ services:
       - db
     volumes:
       - ./src:/app
-      - ./production_static:/vol/web
-      # - ./site-packages:/opt/conda/lib/python3.8/site-packages
+      - ../../data/production_static:/vol/web
     restart: always
     env_file:
       - .live.env
   db:
-    restart: "always"
+    restart: always
     user: root
     image: bianjp/mariadb-alpine
     ports:
       - 3306:3306
     volumes:
-      - ../data/production_db:/var/lib/mysql
+      - ../../data/production_db:/var/lib/mysql
     env_file:
       - .live.env
 
   redis:
-    restart: "always"
+    restart: always
     image: redis:alpine
     command: redis-server --appendonly yes
     ports:
       - 6379:6379
     volumes:
-      - ../data/production_redis:/data
+      - ../../data/production_redis:/data
 
   proxy:
     build:
       context: ./proxy
     volumes:
-      - ../data/production_static:/vol/static
+      - ../../data/production_static:/vol/static
     restart: always
     ports:
       - "80:80"
