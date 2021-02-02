@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app
+      - ./production_static:/vol/web
+      # - ./site-packages:/opt/conda/lib/python3.8/site-packages
+    restart: always
+    env_file:
+      - .live.env
+  db:
+    restart: "always"
+    user: root
+    image: bianjp/mariadb-alpine
+    ports:
+      - 3306:3306
+    volumes:
+      - ./production_db:/var/lib/mysql
+    env_file:
+      - .live.env
+
+  redis:
+    restart: "always"
+    image: redis:alpine
+    command: redis-server --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - ./production_redis:/data
+
+  proxy:
+    build:
+      context: ./proxy
+    volumes:
+      - ./production_static:/vol/static
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
+volumes:
+  production_static:
+  production_db:
+  production_redis:
+  src:
