@@ -7,10 +7,8 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2.3.2
-    - name: Build the docker-compose stack
-      working-directory: ../../django-docker
+    - name: Build the docker-compose stack      
       run: docker-compose up -d
     - name: Restart docker-compose
-      working-directory: ../../django-docker
       run: docker-compose restart
 
