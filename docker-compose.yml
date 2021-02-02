@@ -22,7 +22,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./production_db:/var/lib/mysql
+      - ../data/production_db:/var/lib/mysql
     env_file:
       - .live.env
 
@@ -33,13 +33,13 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ./production_redis:/data
+      - ../data/production_redis:/data
 
   proxy:
     build:
       context: ./proxy
     volumes:
-      - ./production_static:/vol/static
+      - ../data/production_static:/vol/static
     restart: always
     ports:
       - "80:80"
