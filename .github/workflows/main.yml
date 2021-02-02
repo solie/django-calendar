@@ -8,7 +8,7 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2.3.2
     - name: Build the docker-compose stack
-      run: docker-compose -f ~/django-docker/docker-compose.yml up -d
+      run: cd ~/django-docker && docker-compose up -d
     - name: Restart docker-compose
-      run: docker-compose -f ~/django-docker/docker-compose.yml restart
+      run: cd ~/django-docker && docker-compose restart
 
