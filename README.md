@@ -28,6 +28,7 @@
 - Add superuser: exec -it <id of django-calendar_app> /app/manage.py createsuperuser
 - Access django admin: http:<container_ip>/admin
 - Access django shell: exec -it <id of django-calendar-app> /app/manage.py shell_plus
+- Live demo: http://mauu.ga/
 
 ## TODO
 - [v] Add github action rebuilding image
