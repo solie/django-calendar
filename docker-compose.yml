@@ -37,6 +37,7 @@ services:
   proxy:
     build:
       context: ./proxy
+    user: root
     volumes:
       - ../../data/production_static:/vol/static
     restart: always
