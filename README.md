@@ -19,4 +19,4 @@
 - When push to main detected, it will fetch latest commit
 
 ## TODO
-[ ] Add github action rebuilding image
+[v] Add github action rebuilding image
