@@ -7,7 +7,7 @@ services:
      ports:
        - "8080:8080"
      env_file:
-       - .live.env
+       - $HOME/django_app/.live.env
 
   app:
     build:
@@ -21,7 +21,7 @@ services:
       - $HOME/data/production_static:/vol/web
     restart: always
     env_file:
-      - .live.env
+      - $HOME/django_app/.live.env
 
   db:
     restart: always
@@ -32,7 +32,7 @@ services:
     volumes:
       - $HOME/data/production_db:/var/lib/mysql
     env_file:
-      - .live.env
+      - $HOME/django_app/.live.env
 
   redis:
     restart: always
@@ -57,7 +57,7 @@ services:
     depends_on:
       - app
     env_file:
-      - .live.env
+      - $HOME/django_app/.live.env
 
 volumes:
   production_static:
