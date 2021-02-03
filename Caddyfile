@@ -1,4 +1,4 @@
-beta.dermai.com.tw {
+{$DOMAIN} {
 encode gzip
 php_fastcgi /adminer/* adminer:8080
 reverse_proxy app:8000
