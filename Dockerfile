@@ -4,8 +4,8 @@ ENV PYTHONUNBUFFERED 1
 ENV PATH="/scripts:${PATH}"
 
 COPY ./requirements.txt /requirements.txt
-RUN /opt/conda/bin/conda install -y django mysqlclient gunicorn Pillow
-RUN /opt/conda/bin/pip install -r /requirements.txt
+RUN /opt/conda/bin/conda install -y django mysqlclient gunicorn Pillow 
+RUN apk add gcc python3-dev musl-dev && /opt/conda/bin/pip install -r /requirements.txt && apk del gcc musl-dev
 RUN mkdir /app
 # COPY ./src /app
 WORKDIR  /app

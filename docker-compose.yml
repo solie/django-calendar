@@ -1,6 +1,14 @@
-version: '3.7'
+version: "3.3"
 
 services:
+  adminer:
+     image: adminer
+     restart: always
+     ports:
+       - "8080:8080"
+     env_file:
+       - .live.env
+
   app:
     build:
       context: .
@@ -10,7 +18,7 @@ services:
       - db
     volumes:
       - ./src:/app
-      - ../../data/production_static:/vol/web
+      - $HOME/data/production_static:/vol/web
     restart: always
     env_file:
       - .live.env
@@ -21,7 +29,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ../../data/production_db:/var/lib/mysql
+      - $HOME/data/production_db:/var/lib/mysql
     env_file:
       - .live.env
 
@@ -32,22 +40,37 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ../../data/production_redis:/data
+      - $HOME/data/production_redis:/data
 
-  proxy:
-    build:
-      context: ./proxy
-    user: root
-    volumes:
-      - ../../data/production_static:/vol/static
-    restart: always
+  caddy:
+    restart: unless-stopped
+    image: caddy:alpine
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $HOME/data/production_static:/srv
+      - $HOME/data/caddy_data:/data
+      - $HOME/data/caddy_config:/config
     depends_on:
       - app
-
+        #  proxy:
+        #    build:
+        #      context: ./proxy
+        #    user: root
+        #    volumes:
+        #      - ../../data/production_static:/vol/static
+        #    restart: always
+        #    ports:
+        #      - "80:80"
+        #    depends_on:
+        #      - app
+        #      - adminer
 volumes:
   production_static:
   production_db:
   production_redis:
+  caddy_data:
+  caddy_config:
   src:
