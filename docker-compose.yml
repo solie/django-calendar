@@ -17,7 +17,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./src:/app
+      - $HOME/django_app:/app
       - $HOME/data/production_static:/vol/web
     restart: always
     env_file:
