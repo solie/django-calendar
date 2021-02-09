@@ -3,15 +3,19 @@
 - alpine mariadb server
 - alpine redis server 
 - alpine nginx server
-- alpine miniconda3  
+- alpine miniconda3
+- alpine Caddy v2
 
 ## Scheme
-- mysql data: $HOME/data/production_db
-- redis data: $HOME/data/production_redis
-- static data: $HOME/data/production_static
-- django script/app top level folder: $HOME/django_app
+- mysql data: $DATA_DIR/production_db
+- redis data: $DATA_DIR/redis_data
+- static data: $DATA_DIR/production_static
+- Django app: $PWD/django_app (can use link, e.g: `ln -s ~/django_project ./django_app`)
+- Caddy data: $DATA_DIR/caddy_data & caddy_config
 
 ## Github Action
+- Set DATA_DIR outside of $PWD, since it will be replace on every action, eg:
+$HOME/data
 - When push to main detected, it will fetch latest commit, and rebuild/restart the docker-compose daemon
 
 ## Howto (Github Action)
@@ -19,11 +23,11 @@
 - Install docker.io and docker-compose in container
 - Set action from repo->settings, add runner
 - Follow the steps by steps in the container
-- Prepare the django_app in $HOME/django_app
+- Prepare the django_app in $PWD/django_app
   - *NOTE* 
     - use 'redis' as redis host if use internal redis cache
     - use 'db' as mysql host if use internal mysql/mariadb server
-- Create a .live.env in $HOME/django_app
+- Create a .env in $PWD
   - MYSQL_DATABASE=dbname
   - MYSQL_ROOT_PASSWORD=root_password
   - MYSQL_USER=user_db

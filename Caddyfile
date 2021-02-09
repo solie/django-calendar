@@ -1,5 +1,6 @@
 {$DOMAIN} {
-encode gzip
-php_fastcgi /adminer/* adminer:8080
-reverse_proxy app:8000
+encode gzip zstd
+file_server
+reverse_proxy / http://app:8000
+reverse_proxy /adminer* http://adminer:8080
 }

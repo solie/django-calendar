@@ -4,10 +4,10 @@ services:
   adminer:
      image: adminer
      restart: always
+     env_file:
+       - .env
      ports:
        - "8080:8080"
-     env_file:
-       - $HOME/django_app/.live.env
 
   app:
     build:
@@ -17,22 +17,18 @@ services:
     depends_on:
       - db
     volumes:
-      - $HOME/django_app:/app
-      - $HOME/data/production_static:/vol/web
+      - "${PWD}/django_app:/app"
+      - "${DATA_DIR}/production_static:/vol/web"
     restart: always
-    env_file:
-      - $HOME/django_app/.live.env
 
   db:
-    restart: always
+    restart: unless-stopped
     user: root
     image: bianjp/mariadb-alpine
     ports:
       - 3306:3306
     volumes:
-      - $HOME/data/production_db:/var/lib/mysql
-    env_file:
-      - $HOME/django_app/.live.env
+      - "${DATA_DIR}/production_db:/var/lib/mysql"
 
   redis:
     restart: always
@@ -41,28 +37,28 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - $HOME/data/production_redis:/data
+      - "${DATA_DIR}/redis_data:/data"
 
   caddy:
     restart: unless-stopped
     image: caddy:alpine
+    env_file:
+      - .env
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $HOME/data/production_static:/srv
-      - $HOME/data/caddy_data:/data
-      - $HOME/data/caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - "${DATA_DIR}/static:/srv"
+      - "${DATA_DIR}/caddy_data:/data"
+      - "${DATA_DIR}/caddy_config:/config"
     depends_on:
       - app
-    env_file:
-      - $HOME/django_app/.live.env
 
 volumes:
   production_static:
   production_db:
-  production_redis:
+  redis_data:
   caddy_data:
   caddy_config:
-  src:
+  django_app:

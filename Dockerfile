@@ -3,9 +3,12 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PATH="/scripts:${PATH}"
 
-COPY ./requirements.txt /requirements.txt
-RUN /opt/conda/bin/conda install -y django mysqlclient gunicorn Pillow 
-RUN apk add gcc python3-dev musl-dev && /opt/conda/bin/pip install -r /requirements.txt && apk del gcc musl-dev
+COPY $PWD/django_app/requirements.txt /requirements.txt
+RUN /opt/conda/bin/conda install -y --quiet mysqlclient  
+RUN apk add gcc python3-dev musl-dev && \
+/opt/conda/bin/pip install -r /requirements.txt && \
+apk del gcc musl-dev python3 python3-dev && \
+rm -rf /root/.cache
 RUN mkdir /app
 # COPY ./src /app
 WORKDIR  /app
