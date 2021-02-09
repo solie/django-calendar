@@ -3,7 +3,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PATH="/scripts:${PATH}"
 
-COPY $PWD/django_app/requirements.txt /requirements.txt
+COPY ./django_app/requirements.txt /requirements.txt
 RUN /opt/conda/bin/conda install -y --quiet mysqlclient  
 RUN apk add gcc python3-dev musl-dev && \
 /opt/conda/bin/pip install -r /requirements.txt && \
