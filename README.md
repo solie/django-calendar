@@ -23,7 +23,8 @@ $HOME/data
 - Install docker.io and docker-compose in container
 - Set action from repo->settings, add runner
 - Follow the steps by steps in the container
-- Prepare the django_app in $PWD/django_app
+- Clone this repo to $HOME/docker-django
+- Prepare the django_app in django-docker/django_app
   - *NOTE* 
     - use 'redis' as redis host if use internal redis cache
     - use 'db' as mysql host if use internal mysql/mariadb server
@@ -35,7 +36,6 @@ $HOME/data
   - VERSION=devel
   - DJANGO_APP_SECRET_KEY=random
   - DOMAIN=beta.dermai.com.tw
-- Clone this repo to $HOME/docker-django
 - Do the push/commit to main to trigger the flow
 - Add superuser: exec -it <id of django-calendar_app> /app/manage.py createsuperuser
 - Access django admin: https:<DOMAIN>/admin
