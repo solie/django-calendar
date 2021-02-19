@@ -129,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-VERSION = os.environ['VERSION']
+VERSION = os.environ.get('VERSION')
 STATIC_URL = '/static/static/'
 STATIC_ROOT = '/vol/web/static'
 

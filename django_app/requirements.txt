@@ -1,4 +1,5 @@
 django
 django-mysql
+django-extensions
 python-dotenv
 gunicorn
