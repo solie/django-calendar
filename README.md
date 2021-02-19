@@ -35,7 +35,7 @@ $HOME/data
   - MYSQL_PASSWORD=user_pw
   - VERSION=devel
   - DJANGO_APP_SECRET_KEY=random
-  - DOMAIN=beta.dermai.com.tw
+  - DOMAIN=<your domain>
 - Do the push/commit to main to trigger the flow
 - Add superuser: exec -it <id of django-calendar_app> /app/manage.py createsuperuser
 - Access django admin: https:<DOMAIN>/admin
