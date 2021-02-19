@@ -17,6 +17,13 @@
 $HOME/data
 - When push to main detected, it will fetch latest commit, and rebuild/restart the docker-compose daemon
 
+## Howto (local dev)
+- Clone this repo
+- Copy django application into django_app
+- Adjust settings, etc in django_app according to docker-compose service (e.g database, redis)
+- run docker-compose up --build --remove-orphans
+- Use ngrok to do reverse proxy to port 8000
+
 ## Howto (Github Action)
 - Create a gcp or ec2 container
 - Install docker.io and docker-compose in container
