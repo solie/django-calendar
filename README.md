@@ -2,7 +2,6 @@
 ## Components
 - alpine mariadb server
 - alpine redis server 
-- alpine nginx server
 - alpine miniconda3
 - alpine Caddy v2
 
