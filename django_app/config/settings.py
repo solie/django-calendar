@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -79,8 +81,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get("MYSQL_DATABASE"),
-        'USER': os.environ.get("MYSQL_USER"),
-        'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
+        'USER': 'root',
+        'PASSWORD': os.environ.get("MYSQL_ROOT_PASSWORD"),
         'HOST': 'db',
         'PORT': 3306,
         'CONN_MAX_AGE': 5,
