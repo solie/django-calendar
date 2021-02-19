@@ -25,6 +25,8 @@ services:
     restart: unless-stopped
     user: root
     image: bianjp/mariadb-alpine
+    env_file:
+      - .env
     ports:
       - 3306:3306
     volumes:
@@ -39,21 +41,21 @@ services:
     volumes:
       - "${DATA_DIR}/redis_data:/data"
 
-  caddy:
-    restart: unless-stopped
-    image: caddy:alpine
-    env_file:
-      - .env
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - "${DATA_DIR}/static:/srv"
-      - "${DATA_DIR}/caddy_data:/data"
-      - "${DATA_DIR}/caddy_config:/config"
-    depends_on:
-      - app
+#   caddy:
+#     restart: unless-stopped
+#     image: caddy:alpine
+#     env_file:
+#       - .env
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#     volumes:
+#       - ./Caddyfile:/etc/caddy/Caddyfile
+#       - "${DATA_DIR}/static:/srv"
+#       - "${DATA_DIR}/caddy_data:/data"
+#       - "${DATA_DIR}/caddy_config:/config"
+#     depends_on:
+#       - app
 
 volumes:
   production_static:
